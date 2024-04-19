@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: vault-auth-role
+  namespace: default
+rules:
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["roles", "rolebindings"]
+  verbs: ["list"]
+- apiGroups: [""]
+  resources: ["serviceaccounts", "configmaps", "persistentvolumeclaims", "secrets"]
+  verbs: ["list"]
+- apiGroups: ["networking.k8s.io"]
+  resources: ["ingresses"]
+  verbs: ["list"]

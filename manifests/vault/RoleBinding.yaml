@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: vault-auth-rolebinding
+  namespace: default
+subjects:
+- kind: ServiceAccount
+  name: vault-auth
+  namespace: kube-system
+roleRef:
+  kind: Role
+  name: vault-auth-role
+  apiGroup: rbac.authorization.k8s.io

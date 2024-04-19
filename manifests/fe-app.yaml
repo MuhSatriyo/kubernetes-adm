@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe
+spec:
+  selector:
+    matchLabels:
+      app: fe-apps
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: fe-apps
+    spec:
+      containers:
+      - name: fe
+        image: iansinambela/frontend:1.0
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "0.25"
+            memory: "700Mi"
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fe-service
+spec:
+  selector:
+    app: fe-apps
+  type: NodePort
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 32000
